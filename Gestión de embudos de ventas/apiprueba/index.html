@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard Embudo de Oportunidades</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="header">
+    <div class="navbar">
+      <div class="nav-items">
+        <a href="#" class="nav-item" data-target="registro">Registro</a>
+        <a href="#" class="nav-item" data-target="seguimiento">Seguimiento</a>
+        <a href="#" class="nav-item" data-target="prevision">Previsión</a>
+        <a href="#" class="nav-item" data-target="embudo">Embudo</a>
+        <a href="#" class="nav-item" data-target="tareas">Tareas</a>
+      </div>
+      <div class="header-right">
+        <div class="user-avatar">UMG</div>
+        <span style="font-size: 12px; color: #6c757d;">UMG VENTAS</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.nav-item').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = el.dataset.target;
+          switch(target) {
+            case 'seguimiento':
+              window.location.href = '../../Seguimiento_oportunidades/seguimiento.html';
+              break;
+            case 'prevision':
+              window.location.href = '../../prevision_ventas/index.html';
+              break;
+            case 'registro':
+              window.location.href = '../../registro_oportunidades/index.html';
+              break;
+            case 'tareas':
+              window.location.href = '../../asignacion_tareas/index.html';
+              break;
+            case 'embudo':
+              window.location.href = './index.html';
+              break;
+          }
+        });
+      });
+    });
+  </script>
+
+  <h1>Dashboard Embudo de Oportunidades</h1>
+
+  <div class="filters">
+    <div>
+      <label for="filterVendedor">Vendedor:</label>
+      <select id="filterVendedor">
+        <option value="">Todos</option>
+        <!-- Se llenará dinámicamente -->
+      </select>
+    </div>
+    <div>
+      <label for="filterDesde">Desde:</label>
+      <input type="date" id="filterDesde" />
+    </div>
+    <div>
+      <label for="filterHasta">Hasta:</label>
+      <input type="date" id="filterHasta" />
+    </div>
+    <div>
+      <button id="btnFiltrar">Filtrar</button>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <div class="kanban" id="kanban"></div>
+
+    <div class="chart-container">
+      <canvas id="barChartCanvas"></canvas>
+      <div class="info-boxes" id="infoBoxes"></div>
+      <button id="btnExportCsv">Exportar CSV</button>
+    </div>
+  </div>
+
+  <div id="error"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

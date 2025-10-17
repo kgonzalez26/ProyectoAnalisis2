@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Ventas</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="header">
+        <div class="navbar">
+            <div class="nav-items">
+                <a href="#" class="nav-item" data-target="registro">Registro</a>
+                <a href="#" class="nav-item" data-target="seguimiento">Seguimiento</a>
+                <a href="#" class="nav-item" data-target="prevision">Previsión</a>
+                <a href="#" class="nav-item" data-target="embudo">Embudo</a>
+                <a href="#" class="nav-item" data-target="tareas">Tareas</a>
+            </div>
+            <div class="header-right">
+                <div class="user-avatar">UMG</div>
+                <span style="font-size: 12px; color: #6c757d;">UMG VENTAS</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+      // Navegación entre módulos (rutas relativas)
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.nav-item').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = el.dataset.target;
+            switch(target) {
+              case 'seguimiento':
+                window.location.href = './seguimiento.html';
+                break;
+              case 'prevision':
+                window.location.href = '../prevision_ventas/index.html';
+                break;
+              case 'registro':
+                window.location.href = '../registro_oportunidades/index.html';
+                break;
+              case 'tareas':
+                window.location.href = '../asignacion_tareas/index.html';
+                break;
+              case 'embudo':
+                window.location.href = '../Gestión de embudos de ventas/apiprueba/index.html';
+                break;
+            }
+          });
+        });
+      });
+    </script>
+
+    <div class="toolbar">
+        
+        <div class="search-container">
+            <span>🔍</span>
+            <input type="text" class="search-input" placeholder="Buscar...">
+        </div>
+        
+        <div class="view-controls">
+            <div class="view-btn active">☰</div>
+            <div class="view-btn">📈</div>
+
+        </div>
+    </div>
+
+    <div class="kanban-container">
+        <div class="kanban-board">
+            <div class="kanban-column" data-stage="aceptada">
+                <div class="column-header">
+                    <div class="column-title">
+                        Aceptada
+                        <div class="column-total">0 Q</div>
+                    </div>
+                    <button class="add-card-btn" onclick="openModal('aceptada')">+</button>
+                </div>
+                <div class="cards-container"></div>
+            </div>
+
+            <div class="kanban-column" data-stage="en proceso">
+                <div class="column-header">
+                    <div class="column-title">
+                        En proceso
+                        <div class="column-total">0 Q</div>
+                    </div>
+                    <button class="add-card-btn" onclick="openModal('en proceso')">+</button>
+                </div>
+                <div class="cards-container"></div>
+            </div>
+
+            <div class="kanban-column" data-stage="realizada">
+                <div class="column-header">
+                    <div class="column-title">
+                        Realizada
+                        <div class="column-total">0 Q</div>
+                    </div>
+                    <button class="add-card-btn" onclick="openModal('realizada')">+</button>
+                </div>
+                <div class="cards-container"></div>
+            </div>
+
+            <div class="kanban-column" data-stage="perdida">
+                <div class="column-header">
+                    <div class="column-title">
+                        Perdida
+                        <div class="column-total">0 Q</div>
+                    </div>
+                    <button class="add-card-btn" onclick="openModal('perdida')">+</button>
+                </div>
+                <div class="cards-container"></div>
+            </div>
+
+            <div class="kanban-column" data-stage="cerrada">
+                <div class="column-header">
+                    <div class="column-title">
+                        Cerrada
+                        <div class="column-total">0 Q</div>
+                    </div>
+                    <button class="add-card-btn" onclick="openModal('cerrada')">+</button>
+                </div>
+                <div class="cards-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="opportunityModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-stage-tag" id="modalStageTag">Nuevo</div>
+                <div class="modal-title" id="modalTitle">Nueva Oportunidad</div>
+                <div class="modal-total" id="modalTotal">0 Q</div>
+                <button class="modal-add-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="opportunityForm">
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">🏢</div>
+                            <select class="form-select" id="companySelect" required>
+                                <option value="" disabled selected>Seleccione empresa</option>
+                                <option value="Hardware Express">Hardware Express</option>
+                                <option value="Junicon">Junicon</option>
+                                <option value="MC donalds">MC donald's</option>
+                                <option value="ABC Electronics">ABC Electronics</option>
+                                <option value="other">Otra empresa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">📋</div>
+                            <input type="text" class="form-input" id="titulo" placeholder="Nombre de la oportunidad" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">🏢</div>
+                            <label for="estado">Estado</label>
+                            <select class="form-select" id="estado" required>
+                                <option value="aceptada">Aceptada</option>
+                                <option value="en proceso">En proceso</option>
+                                <option value="realizada">Realizada</option>
+                                <option value="perdida">Perdida</option>
+                                <option value="cerrada">Cerrada</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">💰</div>
+                            <label for="valorEstimado">Valor Estimado</label>
+                            <div class="amount-field">
+                                <input type="number" class="form-input" id="valorEstimado" placeholder="0.00" step="0.01" min="0" required>
+                                <span class="currency-symbol">Q</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">📅</div>
+                            <label for="fechaCierre">Fecha de Cierre</label>
+                            <input type="date" class="form-input" id="fechaCierre" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">👤</div>
+                            <label for="vendedor">Vendedor</label>
+                            <input type="text" class="form-input" id="vendedor" placeholder="Nombre del vendedor" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">👤</div>
+                            <label for="nombre">Representante</label>
+                            <input type="text" id="nombre" class="form-input" placeholder="Nombre del representante" required>
+                        </div>
+                    </div>
+
+                    <!-- Agregar con contactos 
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">📞</div>
+                            <input type="tel" class="form-input" id="phoneInput" placeholder="Teléfono del contacto">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-field">
+                            <div class="form-icon">✉️</div>
+                            <input type="email" class="form-input" id="emailInput" placeholder="Correo electrónico">
+                        </div>
+                    </div>
+
+                    -->
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn-add" id="saveButton" onclick="saveOpportunity()">Agregar</button>
+                    <button type="button" class="btn-edit" id="cancelButton" onclick="closeModal()">Cancelar</button>
+                </div>
+                <button type="button" class="btn-delete" id="deleteButton" style="display: none;" onclick="deleteOpportunity()">🗑️ Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="aplicacion.js"></script>
+</body>
+</html>
